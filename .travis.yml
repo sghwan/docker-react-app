@@ -1,0 +1,16 @@
+sudo: required
+
+language: generic
+
+services: 
+  - docker
+
+before_install:
+  - echo "start cerating an image with dockerfile"
+  - docker build -t lano8080/docker-react-app -f Dockerfile.dev
+
+script:
+  - docker run -e CI=true lano8080/docker-react-app npm run test -- --coverage
+
+after_success:
+  - echo "Test success"
